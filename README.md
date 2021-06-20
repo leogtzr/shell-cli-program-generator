@@ -1,1 +1,1 @@
-# shell-cli-program-generator
+# shellcligen

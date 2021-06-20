@@ -1,0 +1,9 @@
+package shellcligen
+
+// CLIOption ...
+type CLIOption struct {
+	// Name ...
+	Name string `json:"name"`
+	// Required ...
+	Required bool `json:"required"`
+}
