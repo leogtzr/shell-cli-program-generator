@@ -1,0 +1,27 @@
+help_message: Asi se usa esta madre
+
+options:
+  - name: nombre1
+    required: true
+    args_num: 2
+
+  - name: nombre2
+    required: false
+    args_num: 4
+# Questions:
+#  - ID: 1
+#    Question: How do you sort a file?
+#    Level: 1
+#    PossibleAnswer: |
+#     Que pedo
+#     a ver si jala esto
+#     arroz
+
+#  - ID: 2
+#    Question: What is a symlink?
+#    Level: 1
+#    PossibleAnswer: |
+#      Que pedo
+#      a ver si jala esto
+#      arroz
+
