@@ -9,16 +9,14 @@ import (
 	"github.com/leogtzr/shellcligen"
 )
 
-var (
-	input = flag.String("input", "", "script input file")
-)
-
 func main() {
+	input := flag.String("input", "", "script input file")
+
 	flag.Parse()
 
 	if len(*input) == 0 {
 		fmt.Fprintln(os.Stderr, "error: missing required input script file")
-		os.Exit(3)
+		os.Exit(1)
 	}
 
 	cli, err := shellcligen.ParseCLIProgram(*input)
