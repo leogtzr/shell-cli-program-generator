@@ -3,28 +3,35 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/leogtzr/shellcligen"
 )
 
-func main() {
+func run() error {
 	input := flag.String("input", "", "script input file")
 
 	flag.Parse()
 
 	if len(*input) == 0 {
-		fmt.Fprintln(os.Stderr, "error: missing required input script file")
-		os.Exit(1)
+		return shellcligen.ErrMissingRequiredArgument
 	}
 
 	cli, err := shellcligen.ParseCLIProgram(*input)
 	if err != nil {
-		log.Fatal(err)
+		return fmt.Errorf("error opening input file: %w", err)
 	}
 
 	for _, opt := range cli.Options {
 		fmt.Println(opt.ArgsNum)
+	}
+
+	return nil
+}
+
+func main() {
+	if err := run(); err != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", err)
+		os.Exit(1)
 	}
 }

@@ -10,11 +10,13 @@ import (
 )
 
 var (
-	ErrOpeningInputFile = errors.New("error opening input file")
-	ErrReadingInputFile = errors.New("error reading input file")
-	ErrParsingInputFile = errors.New("error parsing input file")
+	ErrOpeningInputFile        = errors.New("error opening input file")
+	ErrReadingInputFile        = errors.New("error reading input file")
+	ErrParsingInputFile        = errors.New("error parsing input file")
+	ErrMissingRequiredArgument = errors.New("error missing required argument")
 )
 
+// ParseCLIProgram ...
 func ParseCLIProgram(filename string) (CLIProgram, error) {
 	file, err := os.Open(filename)
 	if err != nil {
