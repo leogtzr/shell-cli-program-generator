@@ -3,6 +3,8 @@ package shellcligen
 import "testing"
 
 func Test_hasRequiredOptions(t *testing.T) {
+	t.Parallel()
+
 	type test struct {
 		cliProgram CLIProgram
 		has        bool
@@ -11,6 +13,7 @@ func Test_hasRequiredOptions(t *testing.T) {
 	tests := []test{
 		{
 			cliProgram: CLIProgram{
+				Help: ``,
 				Options: []CLIOption{
 					{
 						Required: false,
@@ -30,6 +33,7 @@ func Test_hasRequiredOptions(t *testing.T) {
 		},
 		{
 			cliProgram: CLIProgram{
+				Help: ``,
 				Options: []CLIOption{
 					{
 						Required: false,
@@ -54,6 +58,8 @@ func Test_hasRequiredOptions(t *testing.T) {
 }
 
 func TestCLIOption_String(t *testing.T) {
+	t.Parallel()
+
 	type test struct {
 		option CLIOption
 		want   string
@@ -62,9 +68,11 @@ func TestCLIOption_String(t *testing.T) {
 	tests := []test{
 		{
 			option: CLIOption{
-				LongName:  "verbose",
-				ShortName: "v",
-				Required:  false,
+				ConflictsWith: ``,
+				ArgsRequired:  false,
+				LongName:      "verbose",
+				ShortName:     "v",
+				Required:      false,
 			},
 			want: "Long name: `verbose`, Short name: `v`, Required: false",
 		},

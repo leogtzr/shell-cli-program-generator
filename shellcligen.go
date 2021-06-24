@@ -46,6 +46,7 @@ func hasRequiredOptions(cliProgram *CLIProgram) bool {
 	for _, option := range cliProgram.Options {
 		if option.Required {
 			required = true
+
 			break
 		}
 	}

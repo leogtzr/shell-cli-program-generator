@@ -9,5 +9,5 @@ options:
   - long_name: page
     short_name: p
     required: false
-    conflicts_with: p
+    conflicts_with: a
     args_required: true
