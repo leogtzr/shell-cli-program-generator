@@ -24,6 +24,7 @@ func run() error {
 
 	for _, opt := range cli.Options {
 		fmt.Println(opt)
+		fmt.Println(opt.ConflictsWith)
 	}
 
 	return nil

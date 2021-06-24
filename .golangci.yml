@@ -1,2 +1,3 @@
 linters:
-  disable: testpackage
+  disable:
+    - testpackage

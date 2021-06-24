@@ -8,6 +8,11 @@ type CLIProgram struct {
 	Options []CLIOption `json:"options" yaml:"options"`
 }
 
+// Name ...
+type Name struct {
+	Short, Long string
+}
+
 // CLIOption ...
 type CLIOption struct {
 	// LongName ...
@@ -23,7 +28,7 @@ type CLIOption struct {
 	ArgsRequired bool `json:"args_required" yaml:"args_required"`
 
 	// ConflictsWith ...
-	ConflictsWith string `json:"conflicts_with" yaml:"conflicts_with"`
+	ConflictsWith []string `json:"conflicts_with" yaml:"conflicts_with"`
 }
 
 func (cliopt CLIOption) String() string {
