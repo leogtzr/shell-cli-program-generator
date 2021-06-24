@@ -34,8 +34,21 @@ func ParseCLIProgram(filename string) (CLIProgram, error) {
 
 	err = yaml.Unmarshal(fileContent, &cli)
 	if err != nil {
-		return CLIProgram{}, fmt.Errorf("error parsing input file: %w", ErrParsingInputFile)
+		return CLIProgram{}, fmt.Errorf("error parsing input file: %w", err)
 	}
 
 	return cli, nil
+}
+
+func hasRequiredOptions(cliProgram *CLIProgram) bool {
+	required := false
+
+	for _, option := range cliProgram.Options {
+		if option.Required {
+			required = true
+			break
+		}
+	}
+
+	return required
 }

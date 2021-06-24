@@ -1,5 +1,7 @@
 package shellcligen
 
+import "fmt"
+
 // CLIProgram ...
 type CLIProgram struct {
 	Help    string      `json:"message" yaml:"help_message"`
@@ -8,10 +10,23 @@ type CLIProgram struct {
 
 // CLIOption ...
 type CLIOption struct {
-	// Name ...
-	Name string `json:"name" yaml:"name"`
+	// LongName ...
+	LongName string `json:"long_name" yaml:"long_name"`
+
+	// ShortName ...
+	ShortName string `json:"short_name" yaml:"short_name"`
+
 	// Required ...
 	Required bool `json:"required" yaml:"required"`
-	// ArgsNum ...
-	ArgsNum int `json:"args_num" yaml:"args_num"`
+
+	// ArgsRequired ...
+	ArgsRequired bool `json:"args_required" yaml:"args_required"`
+
+	// ConflictsWith ...
+	ConflictsWith string `json:"conflicts_with" yaml:"conflicts_with"`
+}
+
+func (cliopt CLIOption) String() string {
+	return fmt.Sprintf("Long name: `%s`, Short name: `%s`, Required: %t",
+		cliopt.LongName, cliopt.ShortName, cliopt.Required)
 }

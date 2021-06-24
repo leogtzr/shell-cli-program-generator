@@ -23,7 +23,7 @@ func run() error {
 	}
 
 	for _, opt := range cli.Options {
-		fmt.Println(opt.ArgsNum)
+		fmt.Println(opt)
 	}
 
 	return nil
