@@ -248,7 +248,7 @@ func Test_validateOptionNames(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		if got := validateOptionNames(&tt.cliProram); got != tt.wantsValidConflicts {
+		if got := validateExistingConflictingOptionNames(&tt.cliProram); got != tt.wantsValidConflicts {
 			t.Errorf("got=%t, wants=%t for cli option with help message `%s`", got, tt.wantsValidConflicts, tt.cliProram.Help)
 		}
 	}

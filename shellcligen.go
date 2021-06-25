@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"regexp"
 	"strings"
 
 	"gopkg.in/yaml.v3"
@@ -15,7 +16,15 @@ var (
 	ErrReadingInputFile        = errors.New("error reading input file")
 	ErrParsingInputFile        = errors.New("error parsing input file")
 	ErrMissingRequiredArgument = errors.New("error missing required argument")
+	ErrParsingConflictOptions  = errors.New("error parsing options with conflicts")
+	ErrInvalidOptionName       = errors.New("error invalid option name")
+
+	cliOptionRegex = regexp.MustCompile("^[a-zA-Z_]([a-zA-Z0-9_]*)$")
 )
+
+func isOptionNameValid(optionName string, rgx *regexp.Regexp) bool {
+	return rgx.MatchString(optionName)
+}
 
 func existInArrayName(name string, arr *[]Name) bool {
 	exist := false
@@ -45,7 +54,7 @@ func hasTheOption(options *[]string, names *[]Name) bool {
 	return exists
 }
 
-func validateOptionNames(cli *CLIProgram) bool {
+func validateExistingConflictingOptionNames(cli *CLIProgram) bool {
 	valid := true
 
 	optionNames := make([]Name, 0)
@@ -64,6 +73,20 @@ func validateOptionNames(cli *CLIProgram) bool {
 
 				break
 			}
+		}
+	}
+
+	return valid
+}
+
+func validateCliOptionNames(cli *CLIProgram, regex *regexp.Regexp) bool {
+	valid := true
+
+	for _, opt := range cli.Options {
+		if !isOptionNameValid(opt.LongName, regex) || !isOptionNameValid(opt.ShortName, regex) {
+			valid = false
+
+			break
 		}
 	}
 
@@ -89,6 +112,14 @@ func ParseCLIProgram(filename string) (CLIProgram, error) {
 	err = yaml.Unmarshal(fileContent, &cli)
 	if err != nil {
 		return CLIProgram{}, fmt.Errorf("error parsing input file: %w", err)
+	}
+
+	if !validateExistingConflictingOptionNames(&cli) {
+		return CLIProgram{}, fmt.Errorf("error with conflicting options: %w", ErrParsingConflictOptions)
+	}
+
+	if !validateCliOptionNames(&cli, cliOptionRegex) {
+		return CLIProgram{}, fmt.Errorf("error invalid option name: %w", ErrInvalidOptionName)
 	}
 
 	return cli, nil

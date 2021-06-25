@@ -1,7 +1,3 @@
 package shellcligen
 
-const (
-// template = `
-// 	@TODO...
-// `
-)
+const ()

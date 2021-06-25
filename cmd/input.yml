@@ -10,5 +10,5 @@ options:
     short_name: p
     required: false
     conflicts_with:
-      - x
+      - a
     args_required: true
