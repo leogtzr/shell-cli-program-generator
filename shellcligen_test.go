@@ -1,6 +1,7 @@
 package shellcligen
 
 import (
+	"regexp"
 	"testing"
 )
 
@@ -250,6 +251,86 @@ func Test_validateOptionNames(t *testing.T) {
 	for _, tt := range tests {
 		if got := validateExistingConflictingOptionNames(&tt.cliProram); got != tt.wantsValidConflicts {
 			t.Errorf("got=%t, wants=%t for cli option with help message `%s`", got, tt.wantsValidConflicts, tt.cliProram.Help)
+		}
+	}
+}
+
+func Test_validateCliOptionNames(t *testing.T) {
+	t.Parallel()
+
+	cliOptionRegex = regexp.MustCompile(`^[a-zA-Z_]([\-a-zA-Z0-9_]*)$`)
+
+	type test struct {
+		cliProram CLIProgram
+		valid     bool
+	}
+
+	tests := []test{
+		{
+			cliProram: CLIProgram{
+				Help: `HelpTxtMessage1`,
+				Options: []CLIOption{
+					{
+						LongName:      "extended-regexp",
+						ShortName:     "E",
+						Required:      false,
+						ConflictsWith: []string{},
+					},
+					{
+						LongName:      "extended-regexp",
+						ShortName:     "P",
+						Required:      false,
+						ConflictsWith: []string{},
+					},
+				},
+			},
+			valid: true,
+		},
+		{
+			cliProram: CLIProgram{
+				Help: `HelpTxtMessage2`,
+				Options: []CLIOption{
+					{
+						LongName:      "extended-regexp",
+						ShortName:     "E",
+						Required:      false,
+						ConflictsWith: []string{},
+					},
+					{
+						LongName:      "verbose",
+						ShortName:     "v",
+						Required:      false,
+						ConflictsWith: []string{},
+					},
+				},
+			},
+			valid: true,
+		},
+		{
+			cliProram: CLIProgram{
+				Help: `HelpTxtMessage2`,
+				Options: []CLIOption{
+					{
+						LongName:      "extended@regexp",
+						ShortName:     "E",
+						Required:      false,
+						ConflictsWith: []string{},
+					},
+					{
+						LongName:      "verbose",
+						ShortName:     "v",
+						Required:      false,
+						ConflictsWith: []string{},
+					},
+				},
+			},
+			valid: false,
+		},
+	}
+
+	for _, tt := range tests {
+		if got := validateCliOptionNames(&tt.cliProram, cliOptionRegex); got != tt.valid {
+			t.Errorf("got=%t, wants=%t", got, tt.valid)
 		}
 	}
 }
