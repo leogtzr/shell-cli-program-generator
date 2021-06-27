@@ -96,14 +96,19 @@ func validateCliOptionNames(cli *CLIProgram, regex *regexp.Regexp) bool {
 }
 
 func createCliProgramScript(cli *CLIProgram, outputDirectory string) error {
-	outputFile, err := os.Create(path.Join(outputDirectory, "script.sh"))
+	outputScriptFile, err := os.Create(path.Join(outputDirectory, "script.sh"))
 	if err != nil {
 		return err
 	}
+	defer outputScriptFile.Close()
 
-	defer outputFile.Close()
+	outputScriptConfFile, err := os.Create(path.Join(outputDirectory, "script.conf"))
+	if err != nil {
+		return err
+	}
+	defer outputScriptConfFile.Close()
 
-	outputFile.WriteString(templateWithConflictChecking)
+	_, _ = outputScriptFile.WriteString(templateWithConflictChecking)
 
 	return nil
 }
