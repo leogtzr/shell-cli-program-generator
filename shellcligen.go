@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path"
 	"regexp"
 	"strings"
 
@@ -18,6 +19,7 @@ var (
 	ErrMissingRequiredArgument = errors.New("error missing required argument")
 	ErrParsingConflictOptions  = errors.New("error parsing options with conflicts")
 	ErrInvalidOptionName       = errors.New("error invalid option name")
+	ErrCreatingOutputProgram   = errors.New("error creating output script")
 
 	cliOptionRegex = regexp.MustCompile("^[a-zA-Z_]([a-zA-Z0-9_]*)$")
 )
@@ -93,9 +95,22 @@ func validateCliOptionNames(cli *CLIProgram, regex *regexp.Regexp) bool {
 	return valid
 }
 
+func createCliProgramScript(cli *CLIProgram, outputDirectory string) error {
+	outputFile, err := os.Create(path.Join(outputDirectory, "script.sh"))
+	if err != nil {
+		return err
+	}
+
+	defer outputFile.Close()
+
+	outputFile.WriteString(templateWithConflictChecking)
+
+	return nil
+}
+
 // ParseCLIProgram ...
-func ParseCLIProgram(filename string) (CLIProgram, error) {
-	file, err := os.Open(filename)
+func ParseCLIProgram(configFile, outputDirectory string) (CLIProgram, error) {
+	file, err := os.Open(configFile)
 	if err != nil {
 		return CLIProgram{}, fmt.Errorf("error opening input file: %w", ErrOpeningInputFile)
 	}
@@ -120,6 +135,11 @@ func ParseCLIProgram(filename string) (CLIProgram, error) {
 
 	if !validateCliOptionNames(&cli, cliOptionRegex) {
 		return CLIProgram{}, fmt.Errorf("error invalid option name: %w", ErrInvalidOptionName)
+	}
+
+	err = createCliProgramScript(&cli, outputDirectory)
+	if err != nil {
+		return CLIProgram{}, fmt.Errorf("error creating output script: %w", ErrCreatingOutputProgram)
 	}
 
 	return cli, nil

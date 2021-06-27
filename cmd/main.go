@@ -9,15 +9,20 @@ import (
 )
 
 func run() error {
-	input := flag.String("input", "", "script input file")
+	inputFile := flag.String("input", "", "configuration file")
+	outputFile := flag.String("output", "", "output directory where the script will be generated")
 
 	flag.Parse()
 
-	if len(*input) == 0 {
+	if len(*inputFile) == 0 {
 		return shellcligen.ErrMissingRequiredArgument
 	}
 
-	cli, err := shellcligen.ParseCLIProgram(*input)
+	if len(*outputFile) == 0 {
+		return shellcligen.ErrMissingRequiredArgument
+	}
+
+	cli, err := shellcligen.ParseCLIProgram(*inputFile, *outputFile)
 	if err != nil {
 		return fmt.Errorf("error opening input file: %w", err)
 	}

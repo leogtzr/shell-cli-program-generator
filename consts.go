@@ -1,3 +1,5 @@
 package shellcligen
 
-const ()
+const (
+	templateWithConflictChecking = `hello`
+)
