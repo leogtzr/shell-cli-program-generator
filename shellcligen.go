@@ -108,7 +108,12 @@ func createCliProgramScript(cli *CLIProgram, outputDirectory string) error {
 	}
 	defer outputScriptConfFile.Close()
 
-	_, _ = outputScriptFile.WriteString(templateWithConflictChecking)
+	template := templateWithConflictChecking
+	if cli.SafeFlags {
+		template = strings.ReplaceAll(template, safeFlagsTemplateTag, safeFlagsTemplate)
+	}
+
+	_, _ = outputScriptFile.WriteString(template)
 
 	return nil
 }

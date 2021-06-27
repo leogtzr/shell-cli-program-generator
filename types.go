@@ -4,8 +4,9 @@ import "fmt"
 
 // CLIProgram ...
 type CLIProgram struct {
-	Help    string      `json:"message" yaml:"help_message"`
-	Options []CLIOption `json:"options" yaml:"options"`
+	Help      string      `json:"message" yaml:"help_message"`
+	Options   []CLIOption `json:"options" yaml:"options"`
+	SafeFlags bool        `json:"safe_flags" yaml:"safe_flags"`
 }
 
 // Name ...

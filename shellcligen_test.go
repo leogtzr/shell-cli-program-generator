@@ -16,7 +16,8 @@ func Test_hasRequiredOptions(t *testing.T) {
 	tests := []test{
 		{
 			cliProgram: CLIProgram{
-				Help: ``,
+				Help:      ``,
+				SafeFlags: false,
 				Options: []CLIOption{
 					{
 						Required: false,
@@ -36,7 +37,8 @@ func Test_hasRequiredOptions(t *testing.T) {
 		},
 		{
 			cliProgram: CLIProgram{
-				Help: ``,
+				Help:      ``,
+				SafeFlags: false,
 				Options: []CLIOption{
 					{
 						Required: false,
@@ -167,7 +169,8 @@ func Test_validateOptionNames(t *testing.T) {
 	tests := []test{
 		{
 			cliProram: CLIProgram{
-				Help: `HelpTxtMessage1`,
+				Help:      `HelpTxtMessage1`,
+				SafeFlags: false,
 				Options: []CLIOption{
 					{
 						LongName:      "extended-regexp",
@@ -187,7 +190,8 @@ func Test_validateOptionNames(t *testing.T) {
 		},
 		{
 			cliProram: CLIProgram{
-				Help: `HelpTxtMessage2`,
+				Help:      `HelpTxtMessage2`,
+				SafeFlags: false,
 				Options: []CLIOption{
 					{
 						LongName:      "extended-regexp",
@@ -207,7 +211,8 @@ func Test_validateOptionNames(t *testing.T) {
 		},
 		{
 			cliProram: CLIProgram{
-				Help: `HelpTxtMessage3`,
+				Help:      `HelpTxtMessage3`,
+				SafeFlags: false,
 				Options: []CLIOption{
 					{
 						LongName:      "version",
@@ -228,7 +233,8 @@ func Test_validateOptionNames(t *testing.T) {
 		// "X" option doesn't exist, validation should fail.
 		{
 			cliProram: CLIProgram{
-				Help: `HelpTxtMessage4`,
+				Help:      `HelpTxtMessage4`,
+				SafeFlags: false,
 				Options: []CLIOption{
 					{
 						LongName:      "version",
@@ -268,7 +274,8 @@ func Test_validateCliOptionNames(t *testing.T) {
 	tests := []test{
 		{
 			cliProram: CLIProgram{
-				Help: `HelpTxtMessage1`,
+				SafeFlags: false,
+				Help:      `HelpTxtMessage1`,
 				Options: []CLIOption{
 					{
 						LongName:      "extended-regexp",
@@ -288,7 +295,8 @@ func Test_validateCliOptionNames(t *testing.T) {
 		},
 		{
 			cliProram: CLIProgram{
-				Help: `HelpTxtMessage2`,
+				SafeFlags: false,
+				Help:      `HelpTxtMessage2`,
 				Options: []CLIOption{
 					{
 						LongName:      "extended-regexp",
@@ -308,7 +316,8 @@ func Test_validateCliOptionNames(t *testing.T) {
 		},
 		{
 			cliProram: CLIProgram{
-				Help: `HelpTxtMessage2`,
+				SafeFlags: false,
+				Help:      `HelpTxtMessage2`,
 				Options: []CLIOption{
 					{
 						LongName:      "extended@regexp",

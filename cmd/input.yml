@@ -1,4 +1,5 @@
 help_message: Asi se usa esta madre
+safe_flags: false
 
 options:
   - long_name: article
