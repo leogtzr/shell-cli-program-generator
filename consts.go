@@ -1,6 +1,8 @@
 package shellcligen
 
 const (
+	scriptFileName               = "script.sh"
+	scriptConfigFileName         = "script.conf"
 	templateWithConflictChecking = `hello`
 	safeFlagsTemplateTag         = `@safe_flags@`
 	safeFlagsTemplate            = `
