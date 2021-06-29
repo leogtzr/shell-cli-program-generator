@@ -1,0 +1,165 @@
+1|#||4|8611|updatePanel|panPantalla|
+                    
+    
+    
+    
+    <div id="ContentPlaceHolder1_detalleVuelo" class="container marco max-size min-details-size">
+        <div class="row fila1">
+            <div class="col-xs-8 col-sm-8 ">
+                <h4><span id="ContentPlaceHolder1_lblFecha">27 de junio de 2021</span></h4>                    
+            </div>
+            <div class="col-xs-4 col-sm-4 text-right">
+                <h4><span id="ContentPlaceHolder1_lblVuelo">VB1050</span></h4>                    
+            </div>
+        </div>
+        <div class="row fila2">
+            <div class="col-12 text-center">                
+                <h4><i class="fas fa-clock""></i>
+                    <span id="ContentPlaceHolder1_lblEstatusVuelo" style="color:#ffffff;">En tiempo</span>
+                </h4>
+                <div class='col-md-12 text-center'><p>Recuerda que debes presentarte en mostrador de documentación 2 horas antes de la salida programada de tu vuelo si es nacional o 3 horas si es internacional.</p></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 bordeIzquierdo">
+                <div class="row">
+                    <div class="col-12 tc_greyMedium2  fs_24 text-center">
+                        <span id="ContentPlaceHolder1_lblClave">MEX</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 tc_greyMedium2 fs_20 text-center">
+                        <span id="ContentPlaceHolder1_lblNombre">Ciudad de México </span>
+                    </div>
+                </div>
+                <div class="row fs_24 tc_greyMedium2 text-center form-group">
+                    <div class="col-12 text-center"><i class="fas fa-plane-departure"></i>Salida</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+                        <div class="row fs_24 tc_greyMedium2 row-min-height">
+                            <div class="col-xs-12 text-center">Hora programada</div>
+                        </div>
+                        <div class="row fs_20 text-center">
+                            <div class="col-xs-12 text-center">
+                                <span id="ContentPlaceHolder1_lblSTD">03:15 PM</span></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 text-center form-group">
+                        <div class="row fs_24 tc_greyMedium2 text-center row-min-height">
+                            <div class="col-xs-12 col-sm-12 col-12 text-center">
+                                <span id="ContentPlaceHolder1_lblTextoHoraSalida">Hora prevista de salida</span></div>
+                        </div>
+                        <div class="row fs_20 text-center">
+                            <div class="col-xs-12 col-sm-12 col-12 text-center">
+                                <span id="ContentPlaceHolder1_lblETD" style="color:#000000;">03:15 PM</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+                        <div class="row fs_24 tc_greyMedium2 row-min-height">
+                            <div class="col-xs-12 text-center">Puerta de abordaje</div>
+                        </div>
+                        <div class="row fs_20 text-center">
+                            <div class="col-xs-12 text-center">
+                                <span id="ContentPlaceHolder1_lblDepartureGate">*B*</span></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 text-center form-group">
+                        <div class="row fs_24 tc_greyMedium2 text-center row-min-height">
+                            <div class="col-xs-12 col-sm-12 col-12 text-center">Terminal</div>
+                        </div>
+                        <div class="row fs_20 text-center">
+                            <div class="col-xs-12 col-sm-12 col-12 text-center">
+                                <span id="ContentPlaceHolder1_lblDepartureTerminal">1</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6">
+                <div class="row">
+                    <div class="col-12 tc_greyMedium2 fs_24 text-center">
+                        <span id="ContentPlaceHolder1_lblClaveDestino">CUU</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 tc_greyMedium2 fs_20 text-center">
+                        <span id="ContentPlaceHolder1_lblNombreDestino">Chihuahua </span>
+                    </div>
+                </div>
+                <div class="row fs_24 tc_greyMedium2 text-center form-group">
+                    <div class="col-12"><i class="fas fa-plane-arrival"></i>Llegada</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-6 form-group">
+                        <div class="row fs_24 tc_greyMedium2 row-min-height">
+                            <div class="col-xs-12 text-center">Hora programada</div>
+                        </div>
+                        <div class="row fs_20 text-center">
+                            <div class="col-xs-12 text-center">
+                                <span id="ContentPlaceHolder1_lblSTA">04:25 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 text-center form-group">
+                        <div class="row fs_24 tc_greyMedium2 text-center row-min-height">
+                            <div class="col-xs-12 col-sm-12 col-12 text-center">
+                                <span id="ContentPlaceHolder1_lblTextoHoraLLegada">Hora prevista de aterrizaje</span></div>
+                        </div>
+                        <div class="row fs_20 text-center">
+                            <div class="col-xs-12 col-sm-12 col-12 text-center">
+                                <span id="ContentPlaceHolder1_lblETA">04:25 PM</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-6 form-group invisible">
+                        <div class="row fs_24 tc_greyMedium2 row-min-height">
+                            <div class="col-xs-12 text-center"></div>
+                        </div>
+                        <div class="row fs_20 text-center">
+                            <div class="col-xs-12 text-center"></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 text-center form-group">
+                        <div class="row fs_24 tc_greyMedium2 text-center row-min-height">
+                            <div class="col-xs-12 col-sm-12 col-12 text-center">Terminal</div>
+                        </div>
+                        <div class="row fs_20 text-center">
+                            <div class="col-xs-12 col-sm-12 col-12 text-center">
+                                <span id="ContentPlaceHolder1_lblArrivalTerminal">-</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+    
+
+    </div>
+    
+    
+    
+    <div id="ContentPlaceHolder1_regionBtnRegresarForm" class="clear text-center margin-top-20">
+        <input type="submit" name="ctl00$ContentPlaceHolder1$btnRegresar" value="Regresar" id="ContentPlaceHolder1_btnRegresar" class="btn btn-success" />
+    </div>
+    
+    <div id="ContentPlaceHolder1_UpdateProgressDestinos" style="display:none;">
+	
+            <div id="blur" />
+            <div class="center">
+                <img alt="Wait..." src="Contents/images/viva_loader_200px.gif" />
+            </div>
+            </div>
+        
+</div>
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$hdnSelectedForm" id="ContentPlaceHolder1_hdnSelectedForm" value="2" />
+    <input type="hidden" name="ctl00$ContentPlaceHolder1$hdnLanguage" id="ContentPlaceHolder1_hdnLanguage" value="ESP" />
+
+                |13120|hiddenField|__VIEWSTATE|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|8|hiddenField|__VIEWSTATEGENERATOR|3F0162C4|172|hiddenField|__EVENTVALIDATION|40w1zGqj9dtxWuO/qah09fQdW6ROi2W7VQpx8lvvk9K0b9r0n2YTtgiYJR0DOXISldP8p6apIRmvUL6oqJ9Cw98/iJhqWd/If1revQb//ipjLWWuV5guaU5ISJ7wn8mC7IVzcDmzW1iUlgiQ9iR+GXVdSDQvXjI8tD4Fo2vpLs0=|0|asyncPostBackControlIDs|||0|postBackControlIDs|||30|updatePanelIDs||tctl00$panPantalla,panPantalla|0|childUpdatePanelIDs|||29|panelsToRefreshIDs||ctl00$panPantalla,panPantalla|2|asyncPostBackTimeout||90|2|formAction||./|229|scriptStartupBlock|ScriptContentNoTags|Sys.Application.add_init(function() {
+    $create(Sys.UI._UpdateProgress, {"associatedUpdatePanelId":"panPantalla","displayAfter":500,"dynamicLayout":true}, null, null, $get("ContentPlaceHolder1_UpdateProgressDestinos"));
+});
+|

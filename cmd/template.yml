@@ -1,0 +1,26 @@
+help_message: Asi se usa esta madre
+safe_flags: true
+
+options:
+    short_name: article
+    required: false
+    args_required: true
+
+    long_name: page
+    short_name: p
+    required: false
+    conflicts_with:
+      - a
+    args_required: true
+
+    short_name: v
+    long_name: verbose
+    args_required: false
+    required: false
+
+## Should generate:
+# article_option_flag=0
+# page_option_flag=0
+# verbose_option_flag=0
+
+# opts=$(getopt --options a:,f,h --long abc:,help,flag -- "${args[@]}" 2> /dev/null) || {

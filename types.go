@@ -30,6 +30,9 @@ type CLIOption struct {
 
 	// ConflictsWith ...
 	ConflictsWith []string `json:"conflicts_with" yaml:"conflicts_with"`
+
+	// Help ...
+	Help bool `json:"is_help" yaml:"is_help"`
 }
 
 func (cliopt CLIOption) String() string {
