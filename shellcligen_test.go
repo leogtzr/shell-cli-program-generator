@@ -78,6 +78,7 @@ func TestCLIOption_String(t *testing.T) {
 				LongName:      "verbose",
 				ShortName:     "v",
 				Required:      false,
+				Help:          false,
 			},
 			want: "Long name: `verbose`, Short name: `v`, Required: false",
 		},
