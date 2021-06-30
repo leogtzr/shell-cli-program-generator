@@ -318,7 +318,7 @@ func Test_validateCliOptionNames(t *testing.T) {
 		{
 			cliProram: CLIProgram{
 				SafeFlags: false,
-				Help:      `HelpTxtMessage2`,
+				Help:      `HelpTxtMessage3`,
 				Options: []CLIOption{
 					{
 						LongName:      "extended@regexp",
@@ -329,6 +329,27 @@ func Test_validateCliOptionNames(t *testing.T) {
 					{
 						LongName:      "verbose",
 						ShortName:     "v",
+						Required:      false,
+						ConflictsWith: []string{},
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			cliProram: CLIProgram{
+				SafeFlags: false,
+				Help:      `HelpTxtMessage4`,
+				Options: []CLIOption{
+					{
+						LongName:      "",
+						ShortName:     "",
+						Required:      false,
+						ConflictsWith: []string{},
+					},
+					{
+						LongName:      "",
+						ShortName:     "",
 						Required:      false,
 						ConflictsWith: []string{},
 					},
@@ -442,6 +463,57 @@ func Test_validateUniqueCLIOptionNamesCount(t *testing.T) {
 	for _, tt := range tests {
 		if got := validateUniqueCLIOptionNamesCount(&tt.cliOptions); got != tt.want {
 			t.Errorf("got=%t, want=%t", got, tt.want)
+		}
+	}
+}
+
+func Test_optionName(t *testing.T) {
+	t.Parallel()
+
+	type test struct {
+		cliOption CLIOption
+		want      string
+	}
+
+	tests := []test{
+		{
+			cliOption: CLIOption{
+				ShortName:     "a",
+				LongName:      "abc",
+				Help:          false,
+				Required:      false,
+				ConflictsWith: []string{},
+				ArgsRequired:  false,
+			},
+			want: "a",
+		},
+		{
+			cliOption: CLIOption{
+				ShortName:     "",
+				LongName:      "abc",
+				Help:          false,
+				Required:      false,
+				ConflictsWith: []string{},
+				ArgsRequired:  false,
+			},
+			want: "abc",
+		},
+		{
+			cliOption: CLIOption{
+				ShortName:     "  ",
+				LongName:      "",
+				Help:          false,
+				Required:      false,
+				ConflictsWith: []string{},
+				ArgsRequired:  false,
+			},
+			want: "",
+		},
+	}
+
+	for _, tt := range tests {
+		if got := optionName(&tt.cliOption); got != tt.want {
+			t.Errorf("got=%s, want=%s", got, tt.want)
 		}
 	}
 }

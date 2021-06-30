@@ -102,6 +102,7 @@ func haveRepeatedElements(cliOptionNamesCount *map[string]int) bool {
 			return true
 		}
 	}
+
 	return false
 }
 
@@ -145,6 +146,31 @@ func createCliProgramScript(cli *CLIProgram, outputDirectory string) error {
 	return nil
 }
 
+func hasRequiredOptions(cliProgram *CLIProgram) bool {
+	required := false
+
+	for _, option := range cliProgram.Options {
+		if option.Required {
+			required = true
+
+			break
+		}
+	}
+
+	return required
+}
+
+func optionName(cliOption *CLIOption) string {
+	shortOptionName := strings.TrimSpace(cliOption.ShortName)
+	longOptionName := strings.TrimSpace(cliOption.LongName)
+
+	if len(shortOptionName) > 0 {
+		return shortOptionName
+	}
+
+	return longOptionName
+}
+
 // ParseCLIProgram ...
 func ParseCLIProgram(configFile, outputDirectory string) (CLIProgram, error) {
 	file, err := os.Open(configFile)
@@ -178,24 +204,9 @@ func ParseCLIProgram(configFile, outputDirectory string) (CLIProgram, error) {
 		return CLIProgram{}, fmt.Errorf("error repeated option names: %w", ErrRepeatedOptionNames)
 	}
 
-	err = createCliProgramScript(&cli, outputDirectory)
-	if err != nil {
+	if err = createCliProgramScript(&cli, outputDirectory); err != nil {
 		return CLIProgram{}, fmt.Errorf("error creating output script: %w", ErrCreatingOutputProgram)
 	}
 
 	return cli, nil
-}
-
-func hasRequiredOptions(cliProgram *CLIProgram) bool {
-	required := false
-
-	for _, option := range cliProgram.Options {
-		if option.Required {
-			required = true
-
-			break
-		}
-	}
-
-	return required
 }
