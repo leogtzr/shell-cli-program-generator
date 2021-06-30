@@ -339,8 +339,107 @@ func Test_validateCliOptionNames(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		if got := validateCliOptionNames(&tt.cliProram, cliOptionRegex); got != tt.valid {
+		if got := validateCLIOptionNames(&tt.cliProram, cliOptionRegex); got != tt.valid {
 			t.Errorf("got=%t, wants=%t", got, tt.valid)
 		}
 	}
+}
+
+func Test_haveRepeatedElements(t *testing.T) {
+	type test struct {
+		cliOptionNamesCount *map[string]int
+		want                bool
+	}
+
+	tests := []test{
+		{
+			cliOptionNamesCount: &map[string]int{
+				"verbose": 2,
+				"help":    1,
+			},
+			want: true,
+		},
+		{
+			cliOptionNamesCount: &map[string]int{
+				"page":  1,
+				"input": 1,
+			},
+			want: false,
+		},
+	}
+
+	for _, tt := range tests {
+		if got := haveRepeatedElements(tt.cliOptionNamesCount); got != tt.want {
+			t.Errorf("got=%t, want=%t", got, tt.want)
+		}
+	}
+}
+
+func Test_validateUniqueCLIOptionNamesCount(t *testing.T) {
+	type test struct {
+		cliOptions []CLIOption
+		want       bool
+	}
+
+	tests := []test{
+		{
+			cliOptions: []CLIOption{
+				{
+					LongName:     "verbose",
+					ShortName:    "v",
+					Required:     false,
+					ArgsRequired: false,
+				},
+				{
+					LongName:     "version",
+					ShortName:    "v",
+					Required:     false,
+					ArgsRequired: false,
+				},
+			},
+			want: false,
+		},
+		{
+			cliOptions: []CLIOption{
+				{
+					LongName:     "verbose",
+					ShortName:    "v",
+					Required:     false,
+					ArgsRequired: false,
+				},
+				{
+					LongName:     "page",
+					ShortName:    "p",
+					Required:     false,
+					ArgsRequired: false,
+				},
+			},
+			want: true,
+		},
+		{
+			cliOptions: []CLIOption{
+				{
+					LongName:     "h",
+					ShortName:    "",
+					Required:     false,
+					ArgsRequired: false,
+				},
+				{
+					LongName:     "h",
+					ShortName:    "",
+					Required:     false,
+					ArgsRequired: false,
+				},
+			},
+			want: false,
+		},
+	}
+
+	for _, tt := range tests {
+		got := validateUniqueCLIOptionNamesCount(&tt.cliOptions)
+		if got != tt.want {
+			t.Errorf("got=%t, want=%t", got, tt.want)
+		}
+	}
+
 }

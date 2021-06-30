@@ -81,7 +81,7 @@ func validateExistingConflictingOptionNames(cli *CLIProgram) bool {
 	return valid
 }
 
-func validateCliOptionNames(cli *CLIProgram, regex *regexp.Regexp) bool {
+func validateCLIOptionNames(cli *CLIProgram, regex *regexp.Regexp) bool {
 	valid := true
 
 	for _, opt := range cli.Options {
@@ -93,6 +93,31 @@ func validateCliOptionNames(cli *CLIProgram, regex *regexp.Regexp) bool {
 	}
 
 	return valid
+}
+
+func haveRepeatedElements(cliOptionNamesCount *map[string]int) bool {
+	for _, count := range *cliOptionNamesCount {
+		if count > 1 {
+			return true
+		}
+	}
+	return false
+}
+
+func validateUniqueCLIOptionNamesCount(cliOptions *[]CLIOption) bool {
+	shortCLIOptionNamesCount := make(map[string]int)
+	longCLIOptionNamesCount := make(map[string]int)
+
+	for _, cliOption := range *cliOptions {
+		if len(cliOption.LongName) != 0 {
+			longCLIOptionNamesCount[cliOption.LongName]++
+		}
+		if len(cliOption.ShortName) != 0 {
+			shortCLIOptionNamesCount[cliOption.ShortName]++
+		}
+	}
+
+	return !haveRepeatedElements(&shortCLIOptionNamesCount) && !haveRepeatedElements(&longCLIOptionNamesCount)
 }
 
 func createCliProgramScript(cli *CLIProgram, outputDirectory string) error {
@@ -143,7 +168,7 @@ func ParseCLIProgram(configFile, outputDirectory string) (CLIProgram, error) {
 		return CLIProgram{}, fmt.Errorf("error with conflicting options: %w", ErrParsingConflictOptions)
 	}
 
-	if !validateCliOptionNames(&cli, cliOptionRegex) {
+	if !validateCLIOptionNames(&cli, cliOptionRegex) {
 		return CLIProgram{}, fmt.Errorf("error invalid option name: %w", ErrInvalidOptionName)
 	}
 
