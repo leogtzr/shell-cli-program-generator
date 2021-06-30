@@ -20,6 +20,7 @@ var (
 	ErrParsingConflictOptions  = errors.New("error parsing options with conflicts")
 	ErrInvalidOptionName       = errors.New("error invalid option name")
 	ErrCreatingOutputProgram   = errors.New("error creating output script")
+	ErrRepeatedOptionNames     = errors.New("error repeated option names")
 
 	cliOptionRegex = regexp.MustCompile("^[a-zA-Z_]([a-zA-Z0-9_]*)$")
 )
@@ -112,6 +113,7 @@ func validateUniqueCLIOptionNamesCount(cliOptions *[]CLIOption) bool {
 		if len(cliOption.LongName) != 0 {
 			longCLIOptionNamesCount[cliOption.LongName]++
 		}
+
 		if len(cliOption.ShortName) != 0 {
 			shortCLIOptionNamesCount[cliOption.ShortName]++
 		}
@@ -170,6 +172,10 @@ func ParseCLIProgram(configFile, outputDirectory string) (CLIProgram, error) {
 
 	if !validateCLIOptionNames(&cli, cliOptionRegex) {
 		return CLIProgram{}, fmt.Errorf("error invalid option name: %w", ErrInvalidOptionName)
+	}
+
+	if !validateUniqueCLIOptionNamesCount(&cli.Options) {
+		return CLIProgram{}, fmt.Errorf("error repeated option names: %w", ErrRepeatedOptionNames)
 	}
 
 	err = createCliProgramScript(&cli, outputDirectory)

@@ -346,6 +346,8 @@ func Test_validateCliOptionNames(t *testing.T) {
 }
 
 func Test_haveRepeatedElements(t *testing.T) {
+	t.Parallel()
+
 	type test struct {
 		cliOptionNamesCount *map[string]int
 		want                bool
@@ -376,6 +378,8 @@ func Test_haveRepeatedElements(t *testing.T) {
 }
 
 func Test_validateUniqueCLIOptionNamesCount(t *testing.T) {
+	t.Parallel()
+
 	type test struct {
 		cliOptions []CLIOption
 		want       bool
@@ -436,10 +440,8 @@ func Test_validateUniqueCLIOptionNamesCount(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		got := validateUniqueCLIOptionNamesCount(&tt.cliOptions)
-		if got != tt.want {
+		if got := validateUniqueCLIOptionNamesCount(&tt.cliOptions); got != tt.want {
 			t.Errorf("got=%t, want=%t", got, tt.want)
 		}
 	}
-
 }
