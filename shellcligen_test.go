@@ -517,3 +517,43 @@ func Test_optionName(t *testing.T) {
 		}
 	}
 }
+
+func Test_flagOptionName(t *testing.T) {
+	t.Parallel()
+
+	type test struct {
+		cliOption CLIOption
+		want      string
+	}
+
+	tests := []test{
+		{
+			cliOption: CLIOption{
+				ShortName:     "a",
+				LongName:      "article",
+				Help:          false,
+				Required:      false,
+				ArgsRequired:  false,
+				ConflictsWith: []string{},
+			},
+			want: "a_option_flag",
+		},
+		{
+			cliOption: CLIOption{
+				ShortName:     "",
+				LongName:      "article",
+				Help:          false,
+				Required:      false,
+				ArgsRequired:  false,
+				ConflictsWith: []string{},
+			},
+			want: "article_option_flag",
+		},
+	}
+
+	for _, tt := range tests {
+		if got := flagOptionName(&tt.cliOption); got != tt.want {
+			t.Errorf("got=%s, want=%s", got, tt.want)
+		}
+	}
+}

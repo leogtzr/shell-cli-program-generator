@@ -171,6 +171,40 @@ func optionName(cliOption *CLIOption) string {
 	return longOptionName
 }
 
+func sanitizeOptionName(optionName string) string {
+	return strings.ReplaceAll(optionName, "-", "_")
+}
+
+func flagOptionName(clIOption *CLIOption) string {
+	name := optionName(clIOption)
+
+	return fmt.Sprintf("%s_option_flag", sanitizeOptionName(name))
+}
+
+func generateSwitchCaseFromCLIOption(cliOption *CLIOption) string {
+	var switchCaseSb strings.Builder
+
+	shortOptionName := strings.TrimSpace(cliOption.ShortName)
+	longOptionName := strings.TrimSpace(cliOption.LongName)
+	flagOption := flagOptionName(cliOption)
+
+	if len(shortOptionName) > 0 && len(longOptionName) > 0 {
+		switchCaseSb.WriteString(fmt.Sprintf(`%s|%s)`, shortOptionName, longOptionName))
+		switchCaseSb.WriteString("\n")
+		switchCaseSb.WriteString(flagOption)
+
+		if cliOption.ArgsRequired {
+			name := optionName(cliOption)
+			name = sanitizeOptionName(name)
+			switchCaseSb.WriteString(fmt.Sprintf(`%s_arg+=("${2}")`, name))
+			switchCaseSb.WriteString("shift 2")
+			switchCaseSb.WriteString(";;")
+		}
+	}
+
+	return switchCaseSb.String()
+}
+
 // ParseCLIProgram ...
 func ParseCLIProgram(configFile, outputDirectory string) (CLIProgram, error) {
 	file, err := os.Open(configFile)
