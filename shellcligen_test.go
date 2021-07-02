@@ -603,3 +603,67 @@ shift 2
 		}
 	}
 }
+
+func Test_generateSwitchCaseFromCLIOption(t *testing.T) {
+	type test struct {
+		cliOption CLIOption
+		want      string
+	}
+
+	tests := []test{
+		{
+			cliOption: CLIOption{
+				ArgsRequired:  true,
+				ShortName:     "a",
+				LongName:      "",
+				Required:      false,
+				ConflictsWith: []string{},
+				Help:          false,
+			},
+			want: `a)
+a_option_flag=1
+a_arg+=("${2}")
+shift 2
+;;
+`,
+		},
+		{
+			cliOption: CLIOption{
+				ArgsRequired:  true,
+				ShortName:     "",
+				LongName:      "article",
+				Required:      false,
+				ConflictsWith: []string{},
+				Help:          false,
+			},
+			want: `article)
+article_option_flag=1
+article_arg+=("${2}")
+shift 2
+;;
+`,
+		},
+		{
+			cliOption: CLIOption{
+				ArgsRequired:  true,
+				ShortName:     "a",
+				LongName:      "article",
+				Required:      false,
+				ConflictsWith: []string{},
+				Help:          false,
+			},
+			want: `a|article)
+a_option_flag=1
+a_arg+=("${2}")
+shift 2
+;;
+`,
+		},
+	}
+
+	for _, tt := range tests {
+		if got := generateSwitchCaseFromCLIOption(&tt.cliOption); got != tt.want {
+			t.Errorf("got=[%s], want=[%s]", got, tt.want)
+		}
+	}
+}

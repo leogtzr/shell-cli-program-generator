@@ -199,11 +199,11 @@ func generateSwitchCaseFromCLIOption(cliOption *CLIOption) string {
 	flagOption := flagOptionName(cliOption)
 
 	if len(shortOptionName) > 0 && len(longOptionName) > 0 {
-		switchCaseSb.WriteString(fmt.Sprintf(`%s|%s)`, shortOptionName, longOptionName))
+		switchCaseSb.WriteString(fmt.Sprintf("%s|%s)\n", shortOptionName, longOptionName))
 	} else if len(shortOptionName) > 0 && len(longOptionName) == 0 {
-		switchCaseSb.WriteString(fmt.Sprintf(`%s)\n`, shortOptionName))
+		switchCaseSb.WriteString(fmt.Sprintf("%s)\n", shortOptionName))
 	} else if len(shortOptionName) == 0 && len(longOptionName) > 0 {
-		switchCaseSb.WriteString(fmt.Sprintf(`%s)\n`, longOptionName))
+		switchCaseSb.WriteString(fmt.Sprintf("%s)\n", longOptionName))
 	}
 
 	switchCaseSb.WriteString(fmt.Sprintf("%s=1\n", flagOption))
