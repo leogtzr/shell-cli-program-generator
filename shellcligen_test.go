@@ -2,6 +2,7 @@ package shellcligen
 
 import (
 	"regexp"
+	"strings"
 	"testing"
 )
 
@@ -554,6 +555,51 @@ func Test_flagOptionName(t *testing.T) {
 	for _, tt := range tests {
 		if got := flagOptionName(&tt.cliOption); got != tt.want {
 			t.Errorf("got=%s, want=%s", got, tt.want)
+		}
+	}
+}
+
+func Test_generateCaseArsCode(t *testing.T) {
+	type test struct {
+		cliOption CLIOption
+		want      string
+	}
+
+	tests := []test{
+		{
+			cliOption: CLIOption{
+				ArgsRequired:  true,
+				ShortName:     "a",
+				LongName:      "",
+				Required:      false,
+				ConflictsWith: []string{},
+				Help:          false,
+			},
+			want: `a_arg+=("${2}")
+shift 2
+`,
+		},
+		{
+			cliOption: CLIOption{
+				ArgsRequired:  true,
+				ShortName:     "",
+				LongName:      "article",
+				Required:      false,
+				ConflictsWith: []string{},
+				Help:          false,
+			},
+			want: `article_arg+=("${2}")
+shift 2
+`,
+		},
+	}
+
+	for _, tt := range tests {
+		var got strings.Builder
+		generateCaseArsCode(&tt.cliOption, &got)
+
+		if got.String() != tt.want {
+			t.Errorf("got=%s, want=%s", got.String(), tt.want)
 		}
 	}
 }

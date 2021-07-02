@@ -181,6 +181,16 @@ func flagOptionName(clIOption *CLIOption) string {
 	return fmt.Sprintf("%s_option_flag", sanitizeOptionName(name))
 }
 
+func generateCaseArsCode(cliOption *CLIOption, switchCaseSb *strings.Builder) {
+	if cliOption.ArgsRequired {
+		name := optionName(cliOption)
+		name = sanitizeOptionName(name)
+		switchCaseSb.WriteString(fmt.Sprintf(`%s_arg+=("${2}")`, name))
+		switchCaseSb.WriteString("\n")
+		switchCaseSb.WriteString("shift 2\n")
+	}
+}
+
 func generateSwitchCaseFromCLIOption(cliOption *CLIOption) string {
 	var switchCaseSb strings.Builder
 
@@ -190,17 +200,16 @@ func generateSwitchCaseFromCLIOption(cliOption *CLIOption) string {
 
 	if len(shortOptionName) > 0 && len(longOptionName) > 0 {
 		switchCaseSb.WriteString(fmt.Sprintf(`%s|%s)`, shortOptionName, longOptionName))
-		switchCaseSb.WriteString("\n")
-		switchCaseSb.WriteString(flagOption)
-
-		if cliOption.ArgsRequired {
-			name := optionName(cliOption)
-			name = sanitizeOptionName(name)
-			switchCaseSb.WriteString(fmt.Sprintf(`%s_arg+=("${2}")`, name))
-			switchCaseSb.WriteString("shift 2")
-			switchCaseSb.WriteString(";;")
-		}
+	} else if len(shortOptionName) > 0 && len(longOptionName) == 0 {
+		switchCaseSb.WriteString(fmt.Sprintf(`%s)\n`, shortOptionName))
+	} else if len(shortOptionName) == 0 && len(longOptionName) > 0 {
+		switchCaseSb.WriteString(fmt.Sprintf(`%s)\n`, longOptionName))
 	}
+
+	switchCaseSb.WriteString(fmt.Sprintf("%s=1\n", flagOption))
+	generateCaseArsCode(cliOption, &switchCaseSb)
+
+	switchCaseSb.WriteString(";;\n")
 
 	return switchCaseSb.String()
 }
