@@ -560,6 +560,8 @@ func Test_flagOptionName(t *testing.T) {
 }
 
 func Test_generateCaseArsCode(t *testing.T) {
+	t.Parallel()
+
 	type test struct {
 		cliOption CLIOption
 		want      string
@@ -605,6 +607,8 @@ shift 2
 }
 
 func Test_generateSwitchCaseFromCLIOption(t *testing.T) {
+	t.Parallel()
+
 	type test struct {
 		cliOption CLIOption
 		want      string
