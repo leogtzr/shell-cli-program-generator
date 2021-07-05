@@ -1,6 +1,6 @@
 linters-settings:
   funlen:
-    lines: 100 # default 60
+    lines: 110 # default 60
     statements: 132 # default 40
 
 linters:
